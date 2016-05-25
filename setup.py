@@ -5,5 +5,6 @@ setup(name='zramcfg',
       description='ZRAM configuration',
       author='Hannes Reinecke',
       author_email='hare@suse.com',
-      url='https://github.com/hreinecke/zramcfg'
+      url='https://github.com/hreinecke/zramcfg',
+      data_files=[('/usr/lib/systemd/system', ['zramcfg.service'])]
       )
