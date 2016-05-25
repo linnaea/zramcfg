@@ -1,2 +1,3 @@
 # zramcfg
-ZRAM configuration
+Configure ZRAM via systemd
+
