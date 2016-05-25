@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #
 # zramcfg
 # Copyright (c) 2016 Julius & Hannes Reinecke
