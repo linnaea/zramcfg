@@ -1,12 +1,11 @@
 [Unit]
 Description=ZRAM configuration
-ConditionPathExists=-/etc/zram.cfg
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=zramcfg load
-ExecStop=zramcfg save
+ExecStart=/usr/sbin/zramcfg load
+ExecStop=/usr/sbin/zramcfg save
 
 [Install]
 WantedBy=multi-user.target
