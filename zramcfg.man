@@ -1,6 +1,6 @@
 .TH ZRAMCFG 8 "27 May 2016" "0.1" "zramcfg"
 .SH NAME
-zramcfg \- brief example
+zramcfg \- configure ZRAM devices
 .SH SYNOPSIS
 zramcfg [-h] [-c CONFIG] COMMAND
 .SH DESCRIPTION
@@ -23,6 +23,8 @@ Specify alternate configuration file.
 .SH FILES
 .B /etc/zram.cfg
 Default configuration file location.
+.SH SEE ALSO
+zramctl(8)
 .SH BUGS
 No known bugs.
 .SH AUTHOR
