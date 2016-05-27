@@ -1,0 +1,29 @@
+.TH ZRAMCFG 8 "27 May 2016" "0.1" "zramcfg"
+.SH NAME
+zramcfg \- brief example
+.SH SYNOPSIS
+zramcfg [-h] [-c CONFIG] COMMAND
+.SH DESCRIPTION
+zramcfg is a script to make ZRAM device configuration persistent across reboots
+through providing a systemd service for saving and loading configuration
+data during boot up and shutdown.
+.SH COMMANDS
+.TP
+.B save
+Save current ZRAM configuration to file.  Only disks with non-zero size are
+recorded in the configuration file.
+.TP
+.B load
+Restore ZRAM configuration from file.
+.SH OPTIONS
+.TP
+.B \-c \fIconfig_file\fR
+Specify alternate configuration file.
+.RE
+.SH FILES
+.B /etc/zram.cfg
+Default configuration file location.
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Written by Hannes Reinecke.
