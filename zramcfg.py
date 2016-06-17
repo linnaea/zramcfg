@@ -126,6 +126,7 @@ parser.add_argument("action",
                     help="load/save the configuration file")
 parser.add_argument("-f", "--force",
                     help="Remove empty configuration", action='store_true')
+parser.add_argument("-v", "--version", action='version', version='%(prog)s 0.2')
 args = parser.parse_args()
 
 if args.config:
