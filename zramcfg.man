@@ -19,6 +19,9 @@ Restore ZRAM configuration from file.
 .TP
 .B \-c \fIconfig_file\fR
 Specify alternate configuration file.
+.TP
+.B \-f
+Remove stale configuration file if no ZRAM device is configured
 .RE
 .SH FILES
 .B /etc/zram.cfg

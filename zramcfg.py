@@ -9,6 +9,7 @@
 import io
 import re
 import glob
+import os
 import subprocess
 import argparse
 import ConfigParser
@@ -29,7 +30,15 @@ class zramcfg:
             return int(value) != 0
         return False
 
-    def save(self):
+    def save(self, force):
+        if not glob.glob('/sys/class/zram-control'):
+            print 'zram not present, not saving configuration'
+            try:
+                if force:
+                    os.remove(self.cfgfile)
+            finally:
+                exit(0)
+
         # Read sysfs attributes from /sys/block/zram*
         for devpath in glob.glob('/sys/block/zram*'):
             zram = devpath.split('/')[-1]
@@ -54,6 +63,13 @@ class zramcfg:
         if self.config.sections():
             with open(self.cfgfile, 'wb') as configfile:
                 self.config.write(configfile)
+        else:
+            print 'zram not configured, not saving configuration'
+            try:
+                if (force):
+                    os.remove(self.cfgfile)
+            finally:
+                exit(0)
 
     def load(self):
         # Read configuration file
@@ -108,6 +124,8 @@ parser.add_argument("-c", "--config",
 parser.add_argument("action",
                     choices=['load', 'save'],
                     help="load/save the configuration file")
+parser.add_argument("-f", "--force",
+                    help="Remove empty configuration", action='store_true')
 args = parser.parse_args()
 
 if args.config:
@@ -117,4 +135,4 @@ zram = zramcfg(cfg)
 if args.action == 'load':
     zram.load()
 else:
-    zram.save()
+    zram.save(args.force)
