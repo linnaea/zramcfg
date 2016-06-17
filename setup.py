@@ -6,5 +6,6 @@ setup(name='zramcfg',
       author='Hannes Reinecke',
       author_email='hare@suse.com',
       url='https://github.com/hreinecke/zramcfg',
-      data_files=[('/usr/lib/systemd/system', ['zramcfg.service'])]
+      data_files=[('/usr/lib/systemd/system', ['zramcfg.service']),
+                  ('/usr/share/man/man8', ['zramcfg.8'])]
       )
