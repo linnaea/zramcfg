@@ -15,7 +15,8 @@ import argparse
 import configparser
 
 class zramcfg:
-    cfgnames = ['max_comp_streams' , 'comp_algorithm', 'disksize', 'mem_limit' ]
+    w_cfgnames = ['max_comp_streams' , 'comp_algorithm', 'disksize', 'mem_limit' ]
+    r_cfgnames = ['max_comp_streams' , 'comp_algorithm', 'disksize' ]
 
     def __init__(self, name):
         self.config = configparser.ConfigParser()
@@ -47,7 +48,7 @@ class zramcfg:
             # Save current configuration
             print('Save configuration for /dev/' + zram)
             self.config.add_section(zram)
-            for attr in self.cfgnames:
+            for attr in self.r_cfgnames:
                 attrname = '/sys/block/' + zram + '/' + attr
                 with open(attrname, 'r') as f:
                     value = f.readline()
@@ -58,6 +59,14 @@ class zramcfg:
                                 self.config.set(zram, attr, algo.strip('[]'))
                     else:
                         self.config.set(zram, attr, value.rstrip())
+
+            # mem_limit is write-only and cannot be saved with the previous method
+            attrname = '/sys/block/' + zram + '/mm_stat'
+            with open(attrname, 'r') as f:
+                value = f.readline().split()
+                f.close()
+                if len(value) >= 4:
+                    self.config.set(zram, 'mem_limit', value[3])
 
         # Writing configuration file
         if self.config.sections():
@@ -109,7 +118,7 @@ class zramcfg:
                 print('/dev/' + zram + ' already active, skipping')
                 continue
             # Write out configuration to sysfs attributes
-            for attr in self.cfgnames:
+            for attr in self.w_cfgnames:
                 value = self.config.get(zram, attr)
                 attrname = '/sys/block/' + zram + '/' + attr
                 with open(attrname, 'w') as f:
